@@ -35,18 +35,18 @@
 		9BA988E01380B56C00ACE2A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		9BA988E11380B56C00ACE2A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9BA988E21380B56C00ACE2A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		9BA988E51380B56C00ACE2A4 /* Turbo Mud-Info.plist */ = {isa = PBXFileReference; path = "Turbo Mud-Info.plist"; sourceTree = "<group>"; };
+		9BA988E51380B56C00ACE2A4 /* Turbo Mud-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Turbo Mud-Info.plist"; sourceTree = "<group>"; };
 		9BA988E71380B56C00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9BA988E91380B56D00ACE2A4 /* Turbo Mud-Prefix.pch */ = {isa = PBXFileReference; path = "Turbo Mud-Prefix.pch"; sourceTree = "<group>"; };
+		9BA988E91380B56D00ACE2A4 /* Turbo Mud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Turbo Mud-Prefix.pch"; sourceTree = "<group>"; };
 		9BA988EA1380B56D00ACE2A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9BA988ED1380B56D00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		9BA988EF1380B56D00ACE2A4 /* Turbo_MudAppDelegate.h */ = {isa = PBXFileReference; path = Turbo_MudAppDelegate.h; sourceTree = "<group>"; };
+		9BA988EF1380B56D00ACE2A4 /* Turbo_MudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Turbo_MudAppDelegate.h; sourceTree = "<group>"; };
 		9BA988F01380B56D00ACE2A4 /* Turbo_MudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Turbo_MudAppDelegate.m; sourceTree = "<group>"; };
 		9BA988F31380B56D00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		9BA988FA1380B56D00ACE2A4 /* Turbo MudTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Turbo MudTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BA989001380B56D00ACE2A4 /* Turbo MudTests-Info.plist */ = {isa = PBXFileReference; path = "Turbo MudTests-Info.plist"; sourceTree = "<group>"; };
+		9BA989001380B56D00ACE2A4 /* Turbo MudTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Turbo MudTests-Info.plist"; sourceTree = "<group>"; };
 		9BA989021380B56D00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9BA989041380B56D00ACE2A4 /* Turbo MudTests-Prefix.pch */ = {isa = PBXFileReference; path = "Turbo MudTests-Prefix.pch"; sourceTree = "<group>"; };
+		9BA989041380B56D00ACE2A4 /* Turbo MudTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Turbo MudTests-Prefix.pch"; sourceTree = "<group>"; };
 		9BA989051380B56D00ACE2A4 /* Turbo_MudTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Turbo_MudTests.h; sourceTree = "<group>"; };
 		9BA989071380B56D00ACE2A4 /* Turbo_MudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Turbo_MudTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
