@@ -1,0 +1,461 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9BA988DE1380B56C00ACE2A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA988DD1380B56C00ACE2A4 /* Cocoa.framework */; };
+		9BA988E81380B56C00ACE2A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BA988E61380B56C00ACE2A4 /* InfoPlist.strings */; };
+		9BA988EB1380B56D00ACE2A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA988EA1380B56D00ACE2A4 /* main.m */; };
+		9BA988EE1380B56D00ACE2A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9BA988EC1380B56D00ACE2A4 /* Credits.rtf */; };
+		9BA988F11380B56D00ACE2A4 /* Turbo_MudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA988F01380B56D00ACE2A4 /* Turbo_MudAppDelegate.m */; };
+		9BA988F41380B56D00ACE2A4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA988F21380B56D00ACE2A4 /* MainMenu.xib */; };
+		9BA988FB1380B56D00ACE2A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA988DD1380B56C00ACE2A4 /* Cocoa.framework */; };
+		9BA989031380B56D00ACE2A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BA989011380B56D00ACE2A4 /* InfoPlist.strings */; };
+		9BA989061380B56D00ACE2A4 /* Turbo_MudTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 9BA989051380B56D00ACE2A4 /* Turbo_MudTests.h */; };
+		9BA989081380B56D00ACE2A4 /* Turbo_MudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA989071380B56D00ACE2A4 /* Turbo_MudTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9BA988FC1380B56D00ACE2A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BA988D01380B56C00ACE2A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BA988D81380B56C00ACE2A4;
+			remoteInfo = "Turbo Mud";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9BA988D91380B56C00ACE2A4 /* Turbo Mud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Turbo Mud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BA988DD1380B56C00ACE2A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		9BA988E01380B56C00ACE2A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		9BA988E11380B56C00ACE2A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9BA988E21380B56C00ACE2A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9BA988E51380B56C00ACE2A4 /* Turbo Mud-Info.plist */ = {isa = PBXFileReference; path = "Turbo Mud-Info.plist"; sourceTree = "<group>"; };
+		9BA988E71380B56C00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9BA988E91380B56D00ACE2A4 /* Turbo Mud-Prefix.pch */ = {isa = PBXFileReference; path = "Turbo Mud-Prefix.pch"; sourceTree = "<group>"; };
+		9BA988EA1380B56D00ACE2A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9BA988ED1380B56D00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		9BA988EF1380B56D00ACE2A4 /* Turbo_MudAppDelegate.h */ = {isa = PBXFileReference; path = Turbo_MudAppDelegate.h; sourceTree = "<group>"; };
+		9BA988F01380B56D00ACE2A4 /* Turbo_MudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Turbo_MudAppDelegate.m; sourceTree = "<group>"; };
+		9BA988F31380B56D00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		9BA988FA1380B56D00ACE2A4 /* Turbo MudTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Turbo MudTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BA989001380B56D00ACE2A4 /* Turbo MudTests-Info.plist */ = {isa = PBXFileReference; path = "Turbo MudTests-Info.plist"; sourceTree = "<group>"; };
+		9BA989021380B56D00ACE2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9BA989041380B56D00ACE2A4 /* Turbo MudTests-Prefix.pch */ = {isa = PBXFileReference; path = "Turbo MudTests-Prefix.pch"; sourceTree = "<group>"; };
+		9BA989051380B56D00ACE2A4 /* Turbo_MudTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Turbo_MudTests.h; sourceTree = "<group>"; };
+		9BA989071380B56D00ACE2A4 /* Turbo_MudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Turbo_MudTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9BA988D61380B56C00ACE2A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA988DE1380B56C00ACE2A4 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BA988F61380B56D00ACE2A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA988FB1380B56D00ACE2A4 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9BA988CE1380B56C00ACE2A4 = {
+			isa = PBXGroup;
+			children = (
+				9BA988E31380B56C00ACE2A4 /* Turbo Mud */,
+				9BA988FE1380B56D00ACE2A4 /* Turbo MudTests */,
+				9BA988DC1380B56C00ACE2A4 /* Frameworks */,
+				9BA988DA1380B56C00ACE2A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9BA988DA1380B56C00ACE2A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BA988D91380B56C00ACE2A4 /* Turbo Mud.app */,
+				9BA988FA1380B56D00ACE2A4 /* Turbo MudTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BA988DC1380B56C00ACE2A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BA988DD1380B56C00ACE2A4 /* Cocoa.framework */,
+				9BA988DF1380B56C00ACE2A4 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BA988DF1380B56C00ACE2A4 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BA988E01380B56C00ACE2A4 /* AppKit.framework */,
+				9BA988E11380B56C00ACE2A4 /* CoreData.framework */,
+				9BA988E21380B56C00ACE2A4 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9BA988E31380B56C00ACE2A4 /* Turbo Mud */ = {
+			isa = PBXGroup;
+			children = (
+				9BA988EF1380B56D00ACE2A4 /* Turbo_MudAppDelegate.h */,
+				9BA988F01380B56D00ACE2A4 /* Turbo_MudAppDelegate.m */,
+				9BA988F21380B56D00ACE2A4 /* MainMenu.xib */,
+				9BA988E41380B56C00ACE2A4 /* Supporting Files */,
+			);
+			path = "Turbo Mud";
+			sourceTree = "<group>";
+		};
+		9BA988E41380B56C00ACE2A4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9BA988E51380B56C00ACE2A4 /* Turbo Mud-Info.plist */,
+				9BA988E61380B56C00ACE2A4 /* InfoPlist.strings */,
+				9BA988E91380B56D00ACE2A4 /* Turbo Mud-Prefix.pch */,
+				9BA988EA1380B56D00ACE2A4 /* main.m */,
+				9BA988EC1380B56D00ACE2A4 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9BA988FE1380B56D00ACE2A4 /* Turbo MudTests */ = {
+			isa = PBXGroup;
+			children = (
+				9BA989051380B56D00ACE2A4 /* Turbo_MudTests.h */,
+				9BA989071380B56D00ACE2A4 /* Turbo_MudTests.m */,
+				9BA988FF1380B56D00ACE2A4 /* Supporting Files */,
+			);
+			path = "Turbo MudTests";
+			sourceTree = "<group>";
+		};
+		9BA988FF1380B56D00ACE2A4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9BA989001380B56D00ACE2A4 /* Turbo MudTests-Info.plist */,
+				9BA989011380B56D00ACE2A4 /* InfoPlist.strings */,
+				9BA989041380B56D00ACE2A4 /* Turbo MudTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9BA988D81380B56C00ACE2A4 /* Turbo Mud */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BA9890B1380B56D00ACE2A4 /* Build configuration list for PBXNativeTarget "Turbo Mud" */;
+			buildPhases = (
+				9BA988D51380B56C00ACE2A4 /* Sources */,
+				9BA988D61380B56C00ACE2A4 /* Frameworks */,
+				9BA988D71380B56C00ACE2A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Turbo Mud";
+			productName = "Turbo Mud";
+			productReference = 9BA988D91380B56C00ACE2A4 /* Turbo Mud.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9BA988F91380B56D00ACE2A4 /* Turbo MudTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BA9890E1380B56D00ACE2A4 /* Build configuration list for PBXNativeTarget "Turbo MudTests" */;
+			buildPhases = (
+				9BA988F51380B56D00ACE2A4 /* Sources */,
+				9BA988F61380B56D00ACE2A4 /* Frameworks */,
+				9BA988F71380B56D00ACE2A4 /* Resources */,
+				9BA988F81380B56D00ACE2A4 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9BA988FD1380B56D00ACE2A4 /* PBXTargetDependency */,
+			);
+			name = "Turbo MudTests";
+			productName = "Turbo MudTests";
+			productReference = 9BA988FA1380B56D00ACE2A4 /* Turbo MudTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9BA988D01380B56C00ACE2A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "SNAP Interactive";
+			};
+			buildConfigurationList = 9BA988D31380B56C00ACE2A4 /* Build configuration list for PBXProject "Turbo Mud" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9BA988CE1380B56C00ACE2A4;
+			productRefGroup = 9BA988DA1380B56C00ACE2A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9BA988D81380B56C00ACE2A4 /* Turbo Mud */,
+				9BA988F91380B56D00ACE2A4 /* Turbo MudTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9BA988D71380B56C00ACE2A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA988E81380B56C00ACE2A4 /* InfoPlist.strings in Resources */,
+				9BA988EE1380B56D00ACE2A4 /* Credits.rtf in Resources */,
+				9BA988F41380B56D00ACE2A4 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BA988F71380B56D00ACE2A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA989031380B56D00ACE2A4 /* InfoPlist.strings in Resources */,
+				9BA989061380B56D00ACE2A4 /* Turbo_MudTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9BA988F81380B56D00ACE2A4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9BA988D51380B56C00ACE2A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA988EB1380B56D00ACE2A4 /* main.m in Sources */,
+				9BA988F11380B56D00ACE2A4 /* Turbo_MudAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BA988F51380B56D00ACE2A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA989081380B56D00ACE2A4 /* Turbo_MudTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9BA988FD1380B56D00ACE2A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BA988D81380B56C00ACE2A4 /* Turbo Mud */;
+			targetProxy = 9BA988FC1380B56D00ACE2A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9BA988E61380B56C00ACE2A4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BA988E71380B56C00ACE2A4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9BA988EC1380B56D00ACE2A4 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BA988ED1380B56D00ACE2A4 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		9BA988F21380B56D00ACE2A4 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BA988F31380B56D00ACE2A4 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		9BA989011380B56D00ACE2A4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BA989021380B56D00ACE2A4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9BA989091380B56D00ACE2A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9BA9890A1380B56D00ACE2A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9BA9890C1380B56D00ACE2A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Turbo Mud/Turbo Mud-Prefix.pch";
+				INFOPLIST_FILE = "Turbo Mud/Turbo Mud-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9BA9890D1380B56D00ACE2A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Turbo Mud/Turbo Mud-Prefix.pch";
+				INFOPLIST_FILE = "Turbo Mud/Turbo Mud-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		9BA9890F1380B56D00ACE2A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Turbo Mud.app/Contents/MacOS/Turbo Mud";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Turbo MudTests/Turbo MudTests-Prefix.pch";
+				INFOPLIST_FILE = "Turbo MudTests/Turbo MudTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		9BA989101380B56D00ACE2A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Turbo Mud.app/Contents/MacOS/Turbo Mud";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Turbo MudTests/Turbo MudTests-Prefix.pch";
+				INFOPLIST_FILE = "Turbo MudTests/Turbo MudTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9BA988D31380B56C00ACE2A4 /* Build configuration list for PBXProject "Turbo Mud" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BA989091380B56D00ACE2A4 /* Debug */,
+				9BA9890A1380B56D00ACE2A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BA9890B1380B56D00ACE2A4 /* Build configuration list for PBXNativeTarget "Turbo Mud" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BA9890C1380B56D00ACE2A4 /* Debug */,
+				9BA9890D1380B56D00ACE2A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9BA9890E1380B56D00ACE2A4 /* Build configuration list for PBXNativeTarget "Turbo MudTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BA9890F1380B56D00ACE2A4 /* Debug */,
+				9BA989101380B56D00ACE2A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9BA988D01380B56C00ACE2A4 /* Project object */;
+}
