@@ -14,7 +14,7 @@
 
 @implementation Turbo_MudAppDelegate
 
-@synthesize window;
+@synthesize window, textField;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
     int fd;
@@ -27,7 +27,7 @@
     hints.ai_next = NULL;
     hints.ai_family = AF_UNSPEC; // This says we don't care if it's ipv4 or ipv6
     hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_NUMERICSERV;
+    hints.ai_flags = AI_CANONNAME;
     if(getaddrinfo("lusternia.com", "23", &hints, &result) != 0){
         NSLog(@"Getaddrinfo failed");
     }
@@ -37,8 +37,8 @@
         if(fd == -1){
             continue;
         }
-        int flags = fcntl(fd, F_GETFL, 0);
-        fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+        //int flags = fcntl(fd, F_GETFL, 0);
+        //fcntl(fd, F_SETFL, flags | O_NONBLOCK);
         
         if(connect(fd, rp->ai_addr, rp->ai_addrlen) != -1){
             break;
@@ -51,13 +51,16 @@
         NSLog(@"Could not connect on any address :(");
         freeaddrinfo(result);
     }else{
-        dispatch_queue_t queue = dispatch_queue_create("com.mikeash.MAAsyncReader", NULL);        
+        Turbo_MudAppDelegate *del = self;
+        
+        dispatch_queue_t queue = dispatch_queue_create("com.goodwinlabs.reading", NULL);        
         dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fd, 0, queue);
         dispatch_source_set_event_handler(source, ^{
             unsigned long estimatedBytesAvailable = dispatch_source_get_data(source);
-            void *buffer = NULL;
-            ssize_t bytesRead = read(fd, &buffer, estimatedBytesAvailable);
+            char buffer[estimatedBytesAvailable];
+            ssize_t bytesRead = read(fd, buffer, estimatedBytesAvailable);
             NSLog(@"%s read from socket. %zi/%zi", buffer, bytesRead, estimatedBytesAvailable);
+            [del.textField setStringValue:[NSString stringWithFormat:@"%s", buffer]];
         });
         dispatch_source_set_cancel_handler(source, ^{ 
             NSLog(@"Cancelling Reading handler");
