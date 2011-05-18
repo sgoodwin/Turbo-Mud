@@ -17,6 +17,7 @@
 		9BA989031380B56D00ACE2A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BA989011380B56D00ACE2A4 /* InfoPlist.strings */; };
 		9BA989061380B56D00ACE2A4 /* Turbo_MudTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 9BA989051380B56D00ACE2A4 /* Turbo_MudTests.h */; };
 		9BA989081380B56D00ACE2A4 /* Turbo_MudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA989071380B56D00ACE2A4 /* Turbo_MudTests.m */; };
+		9BAC496813837CC700ED8F21 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 9BAC496713837CC700ED8F21 /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		9BA989041380B56D00ACE2A4 /* Turbo MudTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Turbo MudTests-Prefix.pch"; sourceTree = "<group>"; };
 		9BA989051380B56D00ACE2A4 /* Turbo_MudTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Turbo_MudTests.h; sourceTree = "<group>"; };
 		9BA989071380B56D00ACE2A4 /* Turbo_MudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Turbo_MudTests.m; sourceTree = "<group>"; };
+		9BAC496713837CC700ED8F21 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		9BA988E41380B56C00ACE2A4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9BAC496713837CC700ED8F21 /* README */,
 				9BA988E51380B56C00ACE2A4 /* Turbo Mud-Info.plist */,
 				9BA988E61380B56C00ACE2A4 /* InfoPlist.strings */,
 				9BA988E91380B56D00ACE2A4 /* Turbo Mud-Prefix.pch */,
@@ -225,6 +228,7 @@
 				9BA988E81380B56C00ACE2A4 /* InfoPlist.strings in Resources */,
 				9BA988EE1380B56D00ACE2A4 /* Credits.rtf in Resources */,
 				9BA988F41380B56D00ACE2A4 /* MainMenu.xib in Resources */,
+				9BAC496813837CC700ED8F21 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +450,7 @@
 				9BA9890D1380B56D00ACE2A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9BA9890E1380B56D00ACE2A4 /* Build configuration list for PBXNativeTarget "Turbo MudTests" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +459,7 @@
 				9BA989101380B56D00ACE2A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
