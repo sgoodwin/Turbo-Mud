@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B9624281389C2F80046030C /* NSMutableArray+FIFO.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9624271389C2F80046030C /* NSMutableArray+FIFO.m */; };
 		9BA988DE1380B56C00ACE2A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA988DD1380B56C00ACE2A4 /* Cocoa.framework */; };
 		9BA988E81380B56C00ACE2A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BA988E61380B56C00ACE2A4 /* InfoPlist.strings */; };
 		9BA988EB1380B56D00ACE2A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA988EA1380B56D00ACE2A4 /* main.m */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B9624261389C2F80046030C /* NSMutableArray+FIFO.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSMutableArray+FIFO.h"; sourceTree = "<group>"; };
+		9B9624271389C2F80046030C /* NSMutableArray+FIFO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+FIFO.m"; sourceTree = "<group>"; };
 		9BA988D91380B56C00ACE2A4 /* Turbo Mud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Turbo Mud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BA988DD1380B56C00ACE2A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9BA988E01380B56C00ACE2A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -118,6 +121,8 @@
 				9BA988F01380B56D00ACE2A4 /* Turbo_MudAppDelegate.m */,
 				9BA988F21380B56D00ACE2A4 /* MainMenu.xib */,
 				9BA988E41380B56C00ACE2A4 /* Supporting Files */,
+				9B9624261389C2F80046030C /* NSMutableArray+FIFO.h */,
+				9B9624271389C2F80046030C /* NSMutableArray+FIFO.m */,
 			);
 			path = "Turbo Mud";
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 			files = (
 				9BA988EB1380B56D00ACE2A4 /* main.m in Sources */,
 				9BA988F11380B56D00ACE2A4 /* Turbo_MudAppDelegate.m in Sources */,
+				9B9624281389C2F80046030C /* NSMutableArray+FIFO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
