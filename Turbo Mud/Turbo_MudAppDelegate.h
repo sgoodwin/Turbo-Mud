@@ -8,16 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Turbo_MudAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate> {
+@interface Turbo_MudAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, NSTextViewDelegate> {
 @private
     NSWindow *window;
-    NSTextField *textField;
+    NSTextView *textField;
+    NSScrollView *scrollView;
     
     NSMutableArray *inputQueue;
 }
 
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSTextField *textField;
+@property (assign) IBOutlet NSTextView *textField;
+@property (assign) IBOutlet NSScrollView *scrollView;
 @property (retain) NSMutableArray *inputQueue;
 
 - (IBAction)enterKey:(id)sender;

@@ -16,9 +16,13 @@
 
 #import "NSMutableArray+FIFO.h"
 
+@interface Turbo_MudAppDelegate()
+- (void)scrollToBottom:(id)sender;
+@end
+
 @implementation Turbo_MudAppDelegate
 
-@synthesize window, textField, inputQueue;
+@synthesize window, textField, scrollView, inputQueue;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
     self.inputQueue = [NSMutableArray arrayWithCapacity:2];
@@ -35,6 +39,7 @@
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_CANONNAME;
     if(getaddrinfo("lusternia.com", "23", &hints, &result) != 0){
+    //if(getaddrinfo("localhost", "1234", &hints, &result) != 0){
         NSLog(@"Getaddrinfo failed: %s", strerror(errno));
     }
     
@@ -66,7 +71,11 @@
         char buffer[estimatedBytesAvailable];
         ssize_t bytesRead = read(fd, buffer, estimatedBytesAvailable);
         NSString *results = [NSString stringWithCString:buffer encoding:NSASCIIStringEncoding];
-        NSLog(@"Results: %@, %zu", results, bytesRead);
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [self.textField setString:[[self.textField string] stringByAppendingString:results]];
+            [self scrollToBottom:nil];
+            NSLog(@"results: %@", results);
+        });
     });
     dispatch_source_set_cancel_handler(readSource, ^{ 
         NSLog(@"Cancelling Reading handler");
@@ -81,9 +90,9 @@
         if(!nextInputLine){
             return;
         }
-        
+        NSLog(@"Queue has %@ left", self.inputQueue);
         size_t numberOfBytesToWrite = [nextInputLine length];
-        const char *bytesToWrite = [nextInputLine cStringUsingEncoding:NSASCIIStringEncoding];
+        const char *bytesToWrite = [[nextInputLine stringByAppendingString:@"\r\n"] cStringUsingEncoding:NSASCIIStringEncoding];
         size_t numberOfBytesActuallyWritten = write(fd, bytesToWrite, numberOfBytesToWrite);
         if(numberOfBytesActuallyWritten <= 0){
             NSLog(@"There was some failure writing %@, %zu bytes were written, %s", nextInputLine, numberOfBytesActuallyWritten, strerror(errno));
@@ -96,8 +105,25 @@
     dispatch_resume(writeSource);
 }
 
+- (void)textDidChange:(NSNotification *)aNotification{
+    NSLog(@"Text changed");
+}
 
 - (IBAction)enterKey:(id)sender{
     [self.inputQueue enqueue:[sender stringValue]];
+}
+
+- (void)scrollToBottom:(id)sender{
+    NSPoint newScrollOrigin;
+    
+    // assume that the scrollview is an existing variable
+    if ([[self.scrollView documentView] isFlipped]) {
+        newScrollOrigin=NSMakePoint(0.0,NSMaxY([[self.scrollView documentView] frame])-NSHeight([[self.scrollView contentView] bounds]));
+    } else {
+        newScrollOrigin=NSMakePoint(0.0,0.0);
+    }
+    
+    [[self.scrollView documentView] scrollPoint:newScrollOrigin];
+    
 }
 @end
