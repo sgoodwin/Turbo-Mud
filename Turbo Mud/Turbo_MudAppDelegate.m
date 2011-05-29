@@ -21,7 +21,7 @@ const unichar iac = 255;
 
 @interface Turbo_MudAppDelegate()
 - (void)scrollToBottom:(id)sender;
-- (NSString *)processIncomingStream:(NSString*)string;
+- (NSAttributedString *)processIncomingStream:(NSString*)string;
 @end
 
 @implementation Turbo_MudAppDelegate
@@ -81,8 +81,8 @@ const unichar iac = 255;
         Turbo_MudAppDelegate *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             [results enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-                NSString *processedLine = [weakSelf processIncomingStream:line];
-                [weakSelf.textField setString:[[weakSelf.textField string] stringByAppendingString:processedLine]];
+                NSAttributedString *processedLine = [weakSelf processIncomingStream:line];
+                [[weakSelf.textField textStorage] appendAttributedString:processedLine];
                 [weakSelf scrollToBottom:nil];
             }];
         });
@@ -123,35 +123,54 @@ const unichar iac = 255;
     [self.inputQueue enqueue:[sender stringValue]];
 }
 
-- (NSString *)processIncomingStream:(NSString*)string{
+- (NSAttributedString*)processIncomingStream:(NSString*)string{
     if([string length] == 0){
-        return string;
+        NSMutableAttributedString *attributedResult = [[NSMutableAttributedString alloc] init];
+        [attributedResult addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(0, [string length])];
+        return attributedResult;
     }
-
-    __block NSMutableSet *set = [NSMutableSet setWithCapacity:10];
-    NSLog(@"matching against %@", [string charCodeString]);
     
     NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\xFF(..).*" options:NSRegularExpressionUseUnixLineSeparators error:&error];
+    NSRegularExpression *serverCommandRegex = [NSRegularExpression regularExpressionWithPattern:@"\\xFF(..)" options:NSRegularExpressionUseUnixLineSeparators error:&error];
     if(error){
         NSLog(@"error: %@", [error localizedDescription]);
     }
-    [regex enumerateMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+    [serverCommandRegex enumerateMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         if(!result){
             return;
         }
-        NSString *subString = [string substringWithRange:[result rangeAtIndex:1]];
-        NSLog(@"substring: %@", [subString charCodeString]);
-        [set addObject:[NSValue valueWithRange:[result rangeAtIndex:1]]];
+        //NSRange rangeToHandle = NSMakeRange([result rangeAtIndex:1].location-1, [result rangeAtIndex:1].length+1);
+        //NSString *subString = [string substringWithRange:rangeToHandle];
+        // respond according to the matched server message;
     }];
-    NSLog(@"substrings to remove: %@", set);
-    NSMutableString *mutableString = [string mutableCopy];
-    for(NSValue *aRange in set){
-        NSRange range = [aRange rangeValue];
-        [mutableString replaceCharactersInRange:range withString:@""];
+    NSString *commandStrippedString = [serverCommandRegex stringByReplacingMatchesInString:string options:NSRegularExpressionUseUnixLineSeparators range:NSMakeRange(0,[string length]) withTemplate:@""];
+    
+    
+    error = nil;
+    NSRegularExpression *colorRegex = [NSRegularExpression regularExpressionWithPattern:@"\\e.(\\d{1,1};)??(\\d{1,2}m)" options:NSRegularExpressionUseUnixLineSeparators error:&error];
+    if(error){
+        NSLog(@"error: %@", [error localizedDescription]);
     }
-    [mutableString appendString:@"\r\n"];
-    return mutableString;
+    [colorRegex enumerateMatchesInString:commandStrippedString options:NSMatchingReportProgress range:NSMakeRange(0, [commandStrippedString length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        if(!result){
+            return;
+        }
+        NSLog(@"original string: %@", commandStrippedString);
+        NSRange firstRange = [result rangeAtIndex:1];
+        if(firstRange.location != NSNotFound){
+            
+        }
+        
+        NSRange secondRange = [result rangeAtIndex:2];
+        if(secondRange.location != NSNotFound){
+           
+        }
+    }];
+    
+    NSString *colorStrippedString = [colorRegex stringByReplacingMatchesInString:commandStrippedString options:NSRegularExpressionUseUnixLineSeparators range:NSMakeRange(0,[commandStrippedString length]) withTemplate:@""];
+    NSMutableAttributedString *attributedResult = [[NSMutableAttributedString alloc] initWithString:[colorStrippedString stringByAppendingString:@"\r\n"]];
+    [attributedResult addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(0, [colorStrippedString length])];
+    return attributedResult;
 }
 
 - (void)scrollToBottom:(id)sender{
