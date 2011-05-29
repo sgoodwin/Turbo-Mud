@@ -15,9 +15,13 @@
 #include <errno.h>
 
 #import "NSMutableArray+FIFO.h"
+#import "NSString+ASCIIDebug.h"
+
+const unichar iac = 255;
 
 @interface Turbo_MudAppDelegate()
 - (void)scrollToBottom:(id)sender;
+- (void)processIncomingStream:(NSString*)string;
 @end
 
 @implementation Turbo_MudAppDelegate
@@ -39,7 +43,6 @@
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_CANONNAME;
     if(getaddrinfo("lusternia.com", "23", &hints, &result) != 0){
-    //if(getaddrinfo("localhost", "1234", &hints, &result) != 0){
         NSLog(@"Getaddrinfo failed: %s", strerror(errno));
     }
     
@@ -70,11 +73,18 @@
         unsigned long estimatedBytesAvailable = dispatch_source_get_data(readSource);
         char buffer[estimatedBytesAvailable];
         ssize_t bytesRead = read(fd, buffer, estimatedBytesAvailable);
+        if(bytesRead < 0){
+            NSLog(@"Failed to read :( %s", strerror(errno));
+        }
+        
         NSString *results = [NSString stringWithCString:buffer encoding:NSASCIIStringEncoding];
+        Turbo_MudAppDelegate *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [self.textField setString:[[self.textField string] stringByAppendingString:results]];
-            [self scrollToBottom:nil];
-            NSLog(@"results: %@", results);
+            [weakSelf.textField setString:[[weakSelf.textField string] stringByAppendingString:results]];
+            [weakSelf scrollToBottom:nil];
+            [results enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+                [weakSelf processIncomingStream:line];
+            }];
         });
     });
     dispatch_source_set_cancel_handler(readSource, ^{ 
@@ -111,6 +121,35 @@
 
 - (IBAction)enterKey:(id)sender{
     [self.inputQueue enqueue:[sender stringValue]];
+}
+
+- (void)processIncomingStream:(NSString*)string{
+    if([string length] == 0){
+        return;
+    }
+    //NSLog(@"Processing string: %@", string);
+    const unichar firstLetter = [string characterAtIndex:0];
+    if(firstLetter != iac){
+        return;
+    }
+    __block NSMutableSet *set = [NSMutableSet setWithCapacity:10];
+    NSLog(@"matching against %@", [string charCodeString]);
+    
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\xFF\(..\).*" options:NSRegularExpressionUseUnixLineSeparators error:&error];
+    if(error){
+        NSLog(@"error: %@", [error localizedDescription]);
+    }
+    NSUInteger count = [regex numberOfMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, [string length])];
+    [regex enumerateMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        if(!result){
+            return;
+        }
+        NSString *subString = [string substringWithRange:[result rangeAtIndex:1]];
+        NSLog(@"substring: %@, %@", subString, [subString charCodeString]);
+        [set addObject:subString];
+    }];
+    NSLog(@"substrings to remove: %@", [set valueForKeyPath:@"charCodeString"]);
 }
 
 - (void)scrollToBottom:(id)sender{
