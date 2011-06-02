@@ -12,7 +12,6 @@
 
 - (void)enqueue:(id)obj{
     [self insertObject:obj atIndex:[self count]];
-    NSLog(@"enqueued, now I have %@", self);
 }
 
 - (id)dequeue{

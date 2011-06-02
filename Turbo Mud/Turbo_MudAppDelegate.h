@@ -21,6 +21,7 @@
 @property (assign) IBOutlet NSTextView *textField;
 @property (assign) IBOutlet NSScrollView *scrollView;
 @property (retain) NSMutableArray *inputQueue;
+@property (assign) dispatch_source_t writeSource;
 
 - (IBAction)enterKey:(id)sender;
 @end

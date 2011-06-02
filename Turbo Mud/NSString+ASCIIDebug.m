@@ -11,8 +11,7 @@
 @implementation NSString (NSString_ASCIIDebug)
 - (NSString*)charCodeString{
     NSMutableString *toBeReturned = [NSMutableString stringWithCapacity:[self length]*3];
-    [toBeReturned appendFormat:@"%i", [self characterAtIndex:0]];
-    for(int i=1;i<[self length];i++){
+    for(int i=0;i<[self length];i++){
         [toBeReturned appendFormat:@" %i", [self characterAtIndex:i]];
     }
     return toBeReturned;

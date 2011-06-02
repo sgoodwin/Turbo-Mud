@@ -18,7 +18,10 @@
 #import "NSString+ASCIIDebug.h"
 
 const CGFloat kFontSize = 12.0f;
-const unichar iac = 255;
+const unichar kIac = 255;
+const unichar kDo = 253;
+const unichar kDont = 254;
+
 
 @interface Turbo_MudAppDelegate()
 - (void)scrollToBottom:(id)sender;
@@ -26,17 +29,18 @@ const unichar iac = 255;
 - (id)attributeForCode:(NSInteger)code;
 - (NSString*)attributeNameForCode:(NSInteger)code;
 - (void)setupDefaults:(NSMutableDictionary*)dict overwrite:(BOOL)overwrite;
+
+- (void)handleServerWill:(NSString*)phrase;
+
+- (void)goAhead;
+- (void)stopGoing;
 @end
 
 @implementation Turbo_MudAppDelegate
 
-@synthesize window, textField, scrollView, inputQueue;
+@synthesize window, textField, scrollView, inputQueue, writeSource;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
-    NSString *string = @"Enter an option or enter your character's name. ÿù";
-    for(NSInteger i = 0;i<[string length];i++){
-        NSLog(@"char %lu is %i", i, [string characterAtIndex:i]);
-    }
     self.inputQueue = [NSMutableArray arrayWithCapacity:2];
     
     int fd;
@@ -73,6 +77,25 @@ const unichar iac = 255;
         return;
     }
     
+    dispatch_queue_t writeQueue = dispatch_queue_create("com.goodwinlabs.writing", NULL);
+    self.writeSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_WRITE, fd, 0, writeQueue);
+    dispatch_source_set_event_handler(writeSource, ^{
+        NSString *nextInputLine = [self.inputQueue dequeue];
+        if(!nextInputLine){
+            return;
+        }
+        size_t numberOfBytesToWrite = [nextInputLine length];
+        //const char *bytesToWrite = [[nextInputLine stringByAppendingString:@"\r\n"] cStringUsingEncoding:NSASCIIStringEncoding];
+        const char *bytesToWrite = [nextInputLine cStringUsingEncoding:NSASCIIStringEncoding];
+        size_t numberOfBytesActuallyWritten = write(fd, bytesToWrite, numberOfBytesToWrite);
+        if(numberOfBytesActuallyWritten <= 0){
+            NSLog(@"There was some failure writing %@, %zu bytes were written, %s", nextInputLine, numberOfBytesActuallyWritten, strerror(errno));
+        }
+    });
+    dispatch_source_set_cancel_handler(writeSource, ^{
+        NSLog(@"Cancelling Writing handler");
+        close(fd);
+    });
     
     dispatch_queue_t readQueue = dispatch_queue_create("com.goodwinlabs.reading", NULL);
     NSLog(@"Setting up source and handlers...");
@@ -89,6 +112,7 @@ const unichar iac = 255;
         NSArray *lines = [results componentsSeparatedByString:@"\r\n"];
         NSMutableDictionary *previousAttributes = [NSMutableDictionary dictionaryWithCapacity:3];
         for(NSString *line in lines){
+            NSLog(@"recv %@", line);
             NSAttributedString *processedLine = [self processIncomingStream:line withPreviousAttributes:&previousAttributes];
             if(processedLine && [processedLine length] > 0){
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -104,37 +128,26 @@ const unichar iac = 255;
         close(fd); 
     });
     dispatch_resume(readSource);
-    
-    dispatch_queue_t writeQueue = dispatch_queue_create("com.goodwinlabs.writing", NULL);
-    dispatch_source_t writeSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_WRITE, fd, 0, writeQueue);
-    dispatch_source_set_event_handler(writeSource, ^{
-        NSString *nextInputLine = [self.inputQueue dequeue];
-        if(!nextInputLine){
-            return;
-        }
-        size_t numberOfBytesToWrite = [nextInputLine length];
-        const char *bytesToWrite = [[nextInputLine stringByAppendingString:@"\r\n"] cStringUsingEncoding:NSASCIIStringEncoding];
-        size_t numberOfBytesActuallyWritten = write(fd, bytesToWrite, numberOfBytesToWrite);
-        if(numberOfBytesActuallyWritten <= 0){
-            NSLog(@"There was some failure writing %@, %zu bytes were written, %s", nextInputLine, numberOfBytesActuallyWritten, strerror(errno));
-        }
-    });
-    dispatch_source_set_cancel_handler(writeSource, ^{
-        NSLog(@"Cancelling Writing handler");
-        close(fd);
-    });
-    dispatch_resume(writeSource);
 }
 
-- (void)textDidChange:(NSNotification *)aNotification{
-    NSLog(@"Text changed");
+- (void)goAhead{
+    dispatch_resume(self.writeSource);
 }
+
+- (void)stopGoing{
+    dispatch_suspend(self.writeSource);
+}
+
 
 - (IBAction)enterKey:(id)sender{
-    [self.inputQueue enqueue:[sender stringValue]];
+    if([sender stringValue] && [[sender stringValue] length]){
+        [self.inputQueue enqueue:[sender stringValue]];
+        [sender setStringValue:@""];
+    }
 }
 
 - (NSAttributedString*)processIncomingStream:(NSString*)string withPreviousAttributes:(NSMutableDictionary **)previousAttributes{   
+    Turbo_MudAppDelegate *weakSelf = self;
     [self setupDefaults:*previousAttributes overwrite:NO];
     if([string length] == 0){
         NSMutableAttributedString *attributedResult = [[NSMutableAttributedString alloc] init];
@@ -153,8 +166,26 @@ const unichar iac = 255;
         }
         NSRange rangeToHandle = NSMakeRange([result rangeAtIndex:1].location-1, [result rangeAtIndex:1].length+1);
         NSString *subString = [string substringWithRange:rangeToHandle];
-        NSLog(@"Char code of commands: %@", [subString charCodeString]);
-        // respond according to the matched server message;
+        NSLog(@"%@", [subString charCodeString]);
+        unichar commandLetter = [subString characterAtIndex:1];
+        switch(commandLetter){
+            case 249:
+                [weakSelf goAhead];
+                break;
+            case 251:
+                NSLog(@"will");
+                [weakSelf handleServerWill:subString];
+                break;
+            case 252:
+                NSLog(@"won't");
+                break;
+            case 253:
+                NSLog(@"do");
+                break;
+            case 254:
+                NSLog(@"dont'");
+                break;
+        }
     }];
     NSString *commandStrippedString = [serverCommandRegex stringByReplacingMatchesInString:string options:NSRegularExpressionUseUnixLineSeparators range:NSMakeRange(0,[string length]) withTemplate:@""];
     
@@ -278,5 +309,33 @@ const unichar iac = 255;
             return [NSColor whiteColor];
             break;
     }
+}
+
+- (void)handleServerWill:(NSString*)phrase{
+    unichar optionChar = [phrase characterAtIndex:2];
+    NSString *response = nil;
+    switch(optionChar){
+        case 25:
+            NSLog(@"end of record");
+            unichar eor[3] = {kIac,kDo,25};
+            response = [NSString stringWithCharacters:eor length:3];
+            break;
+        case 86:
+            NSLog(@"mccp2");
+            unichar nomccp2[3] = {kIac,kDont,86};
+            response = [NSString stringWithCharacters:nomccp2 length:3];
+            break;
+        case 200:
+            NSLog(@"atcp");
+            unichar noatcp[3] = {kIac,kDont,200};
+            response = [NSString stringWithCharacters:noatcp length:3];
+            break;
+        case 201:
+            NSLog(@"gmcp aka atcp2");
+            unichar noatcp2[3] = {kIac,kDont,201};
+            response = [NSString stringWithCharacters:noatcp2 length:3];
+            break;
+    }
+    [self.inputQueue enqueue:response];
 }
 @end
