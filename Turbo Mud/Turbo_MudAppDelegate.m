@@ -25,7 +25,7 @@
 
 @implementation Turbo_MudAppDelegate
 
-@synthesize window, textField, scrollView, inputQueue;
+@synthesize window, textField, scrollView, inputQueue, previousAttributes;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
     self.inputQueue = [NSMutableArray arrayWithCapacity:2];
@@ -64,7 +64,8 @@
         return;
     }
     
-    
+    self.previousAttributes = [NSMutableDictionary dictionaryWithCapacity:3];
+    Turbo_MudAppDelegate *weakSelf = self;
     dispatch_queue_t readQueue = dispatch_queue_create("com.goodwinlabs.reading", NULL);
     NSLog(@"Setting up source and handlers...");
     dispatch_source_t readSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fd, 0, readQueue);
@@ -74,13 +75,13 @@
         ssize_t bytesRead = read(fd, buffer, estimatedBytesAvailable);
         NSString *results = [NSString stringWithCString:buffer encoding:NSASCIIStringEncoding];
         NSArray *lines = [results componentsSeparatedByString:@"\r\n"];
-        NSMutableDictionary *previousAttributes = [NSMutableDictionary dictionaryWithCapacity:3];
         for(NSString *line in lines){
-            NSAttributedString *processedLine = [self processIncomingStream:line withPreviousAttributes:&previousAttributes];
+            NSMutableDictionary *params = weakSelf.previousAttributes;
+            NSAttributedString *processedLine = [self processIncomingStream:line withPreviousAttributes:&params];
             if(processedLine && [processedLine length] > 0){
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    [[self.textField textStorage] appendAttributedString:processedLine];
-                    [self scrollToBottom:nil];
+                    [[weakSelf.textField textStorage] appendAttributedString:processedLine];
+                    [weakSelf scrollToBottom:nil];
                 });
             }
         }
@@ -94,11 +95,10 @@
     dispatch_queue_t writeQueue = dispatch_queue_create("com.goodwinlabs.writing", NULL);
     dispatch_source_t writeSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_WRITE, fd, 0, writeQueue);
     dispatch_source_set_event_handler(writeSource, ^{
-        NSString *nextInputLine = [self.inputQueue dequeue];
+        NSString *nextInputLine = [weakSelf.inputQueue dequeue];
         if(!nextInputLine){
             return;
         }
-        NSLog(@"Queue has %@ left", self.inputQueue);
         size_t numberOfBytesToWrite = [nextInputLine length]+2;
         const char *bytesToWrite = [[nextInputLine stringByAppendingString:@"\r\n"] cStringUsingEncoding:NSASCIIStringEncoding];
         size_t numberOfBytesActuallyWritten = write(fd, bytesToWrite, numberOfBytesToWrite);
@@ -132,14 +132,13 @@
     }
     
     [[self.scrollView documentView] scrollPoint:newScrollOrigin];
-    
 }
 
-- (NSAttributedString*)processIncomingStream:(NSString*)string withPreviousAttributes:(NSMutableDictionary **)previousAttributes{   
-    [self setupDefaults:*previousAttributes overwrite:NO];
+- (NSAttributedString*)processIncomingStream:(NSString*)string withPreviousAttributes:(NSMutableDictionary **)attrs{   
+    [self setupDefaults:*attrs overwrite:NO];
     if([string length] == 0){
         NSMutableAttributedString *attributedResult = [[NSMutableAttributedString alloc] init];
-        [attributedResult addAttributes:*previousAttributes range:NSMakeRange(0, [string length])];
+        [attributedResult addAttributes:*attrs range:NSMakeRange(0, [string length])];
         return [attributedResult autorelease];
     }
     
@@ -168,7 +167,7 @@
     NSArray *matches = [colorRegex matchesInString:commandStrippedString options:NSMatchingReportProgress range:NSMakeRange(0, [commandStrippedString length])];
     NSString *colorStrippedString = [colorRegex stringByReplacingMatchesInString:commandStrippedString options:NSRegularExpressionUseUnixLineSeparators range:NSMakeRange(0,[commandStrippedString length]) withTemplate:@""];
     NSMutableAttributedString *attributedResult = [[NSMutableAttributedString alloc] initWithString:[colorStrippedString stringByAppendingString:@"\r\n"]];
-    [attributedResult addAttributes:*previousAttributes range:NSMakeRange(0, [colorStrippedString length])];
+    [attributedResult addAttributes:*attrs range:NSMakeRange(0, [colorStrippedString length])];
     
     NSInteger offset = 2;
     for(int i=0;i<[matches count];i++){
@@ -179,11 +178,11 @@
             firstRange.location = firstRange.location - offset;
             NSInteger code = [firstString integerValue];
             if(code == 0){
-                [self setupDefaults:*previousAttributes overwrite:YES];
+                [self setupDefaults:*attrs overwrite:YES];
             }else{
-                [*previousAttributes setObject:[self attributeForCode:code] forKey:[self attributeNameForCode:code]];
+                [*attrs setObject:[self attributeForCode:code] forKey:[self attributeNameForCode:code]];
             }
-            [attributedResult addAttributes:*previousAttributes range:NSMakeRange(firstRange.location,[attributedResult length]-firstRange.location)];
+            [attributedResult addAttributes:*attrs range:NSMakeRange(firstRange.location,[attributedResult length]-firstRange.location)];
             offset+=2;
         }
         NSRange secondRange = [result rangeAtIndex:2];
@@ -192,11 +191,11 @@
             secondRange.location = secondRange.location - offset;
             NSInteger code = [secondString integerValue];
             if(code == 0){
-                [self setupDefaults:*previousAttributes overwrite:YES];
+                [self setupDefaults:*attrs overwrite:YES];
             }else{
-                [*previousAttributes setObject:[self attributeForCode:code] forKey:[self attributeNameForCode:code]];
+                [*attrs setObject:[self attributeForCode:code] forKey:[self attributeNameForCode:code]];
             }
-            [attributedResult addAttributes:*previousAttributes range:NSMakeRange(secondRange.location,[attributedResult length]-secondRange.location)];
+            [attributedResult addAttributes:*attrs range:NSMakeRange(secondRange.location,[attributedResult length]-secondRange.location)];
             offset+=5;
         }
     }

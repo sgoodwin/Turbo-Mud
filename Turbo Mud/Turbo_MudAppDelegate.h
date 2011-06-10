@@ -17,6 +17,7 @@
 @property (weak) IBOutlet NSTextView *textField;
 @property (weak) IBOutlet NSScrollView *scrollView;
 @property (strong) NSMutableArray *inputQueue;
+@property (strong) NSMutableDictionary *previousAttributes;
 
 - (IBAction)enterKey:(id)sender;
 - (NSAttributedString*)processIncomingStream:(NSString*)string withPreviousAttributes:(NSMutableDictionary **)previousAttributes;
