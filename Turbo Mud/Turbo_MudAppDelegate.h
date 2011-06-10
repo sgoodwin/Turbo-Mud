@@ -8,11 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Turbo_MudAppDelegate : NSObject <NSApplicationDelegate> {
+@class GOWriteDelegate;
+@class GOReadDelegate;
+@interface Turbo_MudAppDelegate : NSObject <NSApplicationDelegate, NSStreamDelegate> {
 @private
     NSWindow *window;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSTextField *inputBox;
+@property (strong) NSInputStream *readStream;
+@property (strong) NSOutputStream *writeStream;
+@property (strong) GOWriteDelegate *writeDelegate;
+@property (strong) GOReadDelegate *readDelegate;
 
+void ReadStreamCallback(CFReadStreamRef stream, CFStreamEventType eventType, void *clientCallBackInfo);
 @end
