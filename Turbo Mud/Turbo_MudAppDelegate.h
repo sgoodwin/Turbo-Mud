@@ -10,18 +10,17 @@
 
 @interface Turbo_MudAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, NSTextViewDelegate> {
 @private
-    NSWindow *window;
-    NSTextView *textField;
-    NSScrollView *scrollView;
-    
     NSMutableArray *inputQueue;
 }
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSTextView *textField;
-@property (assign) IBOutlet NSScrollView *scrollView;
-@property (retain) NSMutableArray *inputQueue;
-@property (assign) dispatch_source_t writeSource;
+@property (weak) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSTextView *textField;
+@property (weak) IBOutlet NSScrollView *scrollView;
+@property (strong) NSMutableArray *inputQueue;
 
 - (IBAction)enterKey:(id)sender;
+- (NSAttributedString*)processIncomingStream:(NSString*)string withPreviousAttributes:(NSMutableDictionary **)previousAttributes;
+- (void)setupDefaults:(NSMutableDictionary*)dict overwrite:(BOOL)overwrite;
+- (NSString*)attributeNameForCode:(NSInteger)code;
+- (id)attributeForCode:(NSInteger)code;
 @end
