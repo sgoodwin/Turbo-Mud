@@ -57,6 +57,7 @@
 		9BA98ECC1391BEEE008212F3 /* NSString+ASCIIDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ASCIIDebug.h"; sourceTree = "<group>"; };
 		9BA98ECD1391BEEE008212F3 /* NSString+ASCIIDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ASCIIDebug.m"; sourceTree = "<group>"; };
 		9BAC496013837AF800ED8F21 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
+		9BFFD9B413A2930200484539 /* GOMudCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GOMudCodes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +129,7 @@
 				9B9624271389C2F80046030C /* NSMutableArray+FIFO.m */,
 				9BA98ECC1391BEEE008212F3 /* NSString+ASCIIDebug.h */,
 				9BA98ECD1391BEEE008212F3 /* NSString+ASCIIDebug.m */,
+				9BFFD9B413A2930200484539 /* GOMudCodes.h */,
 			);
 			path = "Turbo Mud";
 			sourceTree = "<group>";

@@ -7,10 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GOMudCodes.h"
 
 @interface Turbo_MudAppDelegate : NSObject <NSApplicationDelegate, NSTextFieldDelegate, NSTextViewDelegate> {
 @private
     NSMutableArray *inputQueue;
+    dispatch_source_t writeSource;
 }
 
 @property (weak) IBOutlet NSWindow *window;
@@ -24,4 +26,7 @@
 - (void)setupDefaults:(NSMutableDictionary*)dict overwrite:(BOOL)overwrite;
 - (NSString*)attributeNameForCode:(NSInteger)code;
 - (id)attributeForCode:(NSInteger)code;
+- (void)processServerCommand:(NSString*)string;
+- (void)processServerOptionForWill:(NSString*)string;
+- (void)sendCommand:(GOServerCommand)command withOption:(GOServerOption)option;
 @end

@@ -1,0 +1,41 @@
+//
+//  GOMudCodes.h
+//  Turbo Mud
+//
+//  Created by Samuel Goodwin on 6/10/11.
+//  Copyright 2011 SNAP Interactive. All rights reserved.
+//
+
+#ifndef Turbo_Mud_GOMudCodes_h
+#define Turbo_Mud_GOMudCodes_h
+
+#define IAC 255
+
+typedef enum{
+    GO_AHEAD=249,
+    WILL=251,
+    WONT=252,
+    DO=253,
+    DONT=254
+}GOServerCommand;
+
+typedef enum{
+    ECHO=1,
+    SUPPRESS_GO_AHEAD=3,
+    TERMINAL_TYPE=24,
+    END_OF_RECORD=25,
+    NEGOTIATE_ABOUT_WINDOW_SIZE=31,
+    CHARACTER_ENCODING=42,
+    MUD_SERVER_DATA_PROTOCOL=69,
+    MUD_SERVER_STATUS_PROTOCOL=70,
+    MUD_CLIENT_COMPRESSION_PROTOCOL=85,
+    MUD_CLIENT_COMPRESSION_PROTOCOL_2=86,
+    MUD_SOUND_PROTOCOL=90,
+    MUD_EXTERNSION_PROTOCOL=91,
+    ZENITH_MUD_PROTOCOL=93,
+    AARDWOLF_TELNET_CLIENT_PROTOCOL=102,
+    ACHAEA_TELNET_CLIENT_PROTOCOL=200,
+    GENERIC_MUD_COMMUNICATION_PROTOCOL=201
+}GOServerOption;
+
+#endif
