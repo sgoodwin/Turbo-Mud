@@ -23,7 +23,13 @@
 
 @synthesize window, textField, scrollView, inputQueue, previousAttributes;
 
+void SigPipeHandler(int s){
+    NSLog(@"SIGPIPE! %i", s);
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
+    signal(SIGPIPE, SigPipeHandler);
+    
     self.inputQueue = [NSMutableArray arrayWithCapacity:2];
     
     __block int fd;
@@ -69,6 +75,7 @@
         dispatch_source_set_event_handler(readSource, ^{
             unsigned long estimatedBytesAvailable = dispatch_source_get_data(readSource);
             if(estimatedBytesAvailable == 0){
+                NSLog(@"connection dead?");
                 return;
             }
             char buffer[estimatedBytesAvailable];
@@ -103,14 +110,14 @@
             size_t numberOfBytesActuallyWritten = write(fd, bytesToWrite, numberOfBytesToWrite);
             if(numberOfBytesActuallyWritten <= 0){
                 NSLog(@"There was some failure writing %@, %zu bytes were written, %s", nextInputLine, numberOfBytesActuallyWritten, strerror(errno));
+                return;
             }
-            dispatch_suspend(weakSelf->writeSource);
         });
         dispatch_source_set_cancel_handler(writeSource, ^{
             NSLog(@"Cancelling Writing handler");
             close(fd);
         });
-        //dispatch_resume(writeSource);
+        dispatch_resume(writeSource);
     });
 }
 
@@ -257,13 +264,15 @@
     GOServerCommand serverCommand = [string characterAtIndex:1];
     NSLog(@"processing chars: %@", [string charCodeString]);
     switch(serverCommand){
+        case SE:
+            NSLog(@"END OF NEGOTIATION");
+            break;
         case WILL:
             NSLog(@"WILL");
             [self processServerOptionForWill:string];
             break;
         case GO_AHEAD:
             NSLog(@"GO AHEAD");
-            dispatch_resume(writeSource);
             break;
         case WONT:
             NSLog(@"WON'T");
@@ -338,7 +347,7 @@
             break;
         case MUD_CLIENT_COMPRESSION_PROTOCOL_2:
             NSLog(@"mud client ocmpression protocol 2");
-            [self sendCommand:DONT withOption:MUD_CLIENT_COMPRESSION_PROTOCOL_2];
+            [self sendCommand:DO withOption:MUD_CLIENT_COMPRESSION_PROTOCOL_2];
             break;
         case GENERIC_MUD_COMMUNICATION_PROTOCOL:
             NSLog(@"GMCP");
@@ -348,11 +357,11 @@
 }
 
 - (void)sendCommand:(GOServerCommand)command withOption:(GOServerOption)option{
-    char message[3];
+    /*unichar message[3];
     message[0] = IAC;
     message[1] = command;
     message[2] = option;
-    NSString *commandToSend = [NSString stringWithCString:message encoding:NSASCIIStringEncoding];
-    [[self inputQueue] enqueue:commandToSend];
+    NSString *commandToSend = [[NSString alloc] initWithCharacters:message length:3];
+    [[self inputQueue] enqueue:commandToSend];*/
 }
 @end

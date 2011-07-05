@@ -21,6 +21,8 @@
 @property (strong) NSMutableArray *inputQueue;
 @property (strong) NSMutableDictionary *previousAttributes;
 
+void SigPipeHandler(int s);
+
 - (IBAction)enterKey:(id)sender;
 - (NSAttributedString*)processIncomingStream:(NSString*)string withPreviousAttributes:(NSMutableDictionary **)previousAttributes;
 - (void)setupDefaults:(NSMutableDictionary*)dict overwrite:(BOOL)overwrite;

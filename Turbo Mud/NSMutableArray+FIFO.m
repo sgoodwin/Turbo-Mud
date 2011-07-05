@@ -3,7 +3,7 @@
 //  Turbo Mud
 //
 //  Created by Samuel Goodwin on 5/22/11.
-//  Copyright 2011 SNAP Interactive. All rights reserved.
+//  Copyright 2011 Goodwinlabs. All rights reserved.
 //
 
 #import "NSMutableArray+FIFO.h"

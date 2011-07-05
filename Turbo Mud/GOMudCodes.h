@@ -3,7 +3,7 @@
 //  Turbo Mud
 //
 //  Created by Samuel Goodwin on 6/10/11.
-//  Copyright 2011 SNAP Interactive. All rights reserved.
+//  Copyright 2011 Goodwinlabs. All rights reserved.
 //
 
 #ifndef Turbo_Mud_GOMudCodes_h
@@ -12,6 +12,7 @@
 #define IAC 255
 
 typedef enum{
+    SE=240,
     GO_AHEAD=249,
     WILL=251,
     WONT=252,
